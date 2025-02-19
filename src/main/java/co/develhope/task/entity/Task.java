@@ -1,5 +1,6 @@
 package co.develhope.task.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -15,8 +16,9 @@ public class Task {
     @Column(name = "description")
     private String description;
     @Column(name = "due_date")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
-    @Column(name = "completed")
+    @Column(name = "completed", nullable = false)
     private boolean completed;
 
     public Task() {}
