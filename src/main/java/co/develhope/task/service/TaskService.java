@@ -36,4 +36,9 @@ public class TaskService {
             return Optional.empty();
         }
     }
+
+    public Task deleteTask(Task task){
+       taskRepository.delete(task);
+       return task;
+    }
 }

@@ -34,4 +34,9 @@ public class TaskController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @DeleteMapping("/delete-task")
+    public ResponseEntity<Task> deleteTask(@RequestBody Task task){
+        return ResponseEntity.ok(taskService.deleteTask(task));
+    }
 }
