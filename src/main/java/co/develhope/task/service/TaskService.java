@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -20,5 +21,19 @@ public class TaskService {
     public ArrayList<Task> selectAllTasks(){
         List<Task> tasks = taskRepository.findAll();
         return new ArrayList<>(tasks);
+    }
+
+    public Optional<Task> updateTask(Long id, Task updateTask){
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()){
+            taskOptional.get().setTitle(updateTask.getTitle());
+            taskOptional.get().setDescription(updateTask.getDescription());
+            taskOptional.get().setDueDate(updateTask.getDueDate());
+            taskOptional.get().setCompleted(updateTask.isCompleted());
+            Task task = taskRepository.save(updateTask);
+            return Optional.of(task);
+        } else {
+            return Optional.empty();
+        }
     }
 }

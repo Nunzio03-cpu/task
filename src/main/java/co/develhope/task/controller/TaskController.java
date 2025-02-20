@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/task")
@@ -22,5 +23,15 @@ public class TaskController {
     @GetMapping("/select-all-tasks")
     public ResponseEntity<ArrayList<Task>> selectAllTasks(){
         return ResponseEntity.ok(taskService.selectAllTasks());
+    }
+
+    @PutMapping("/update-task/{id}")
+    public ResponseEntity<Optional<Task>> updateTask(@PathVariable Long id, @RequestBody Task task){
+        Optional<Task> taskOptional = taskService.updateTask(id, task);
+        if (taskOptional.isPresent()){
+            return ResponseEntity.ok(taskOptional);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
