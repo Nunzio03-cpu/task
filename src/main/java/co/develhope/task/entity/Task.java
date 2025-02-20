@@ -23,12 +23,12 @@ public class Task {
 
     public Task() {}
 
-    public Task(Long id, String title, String description, LocalDate dueDate, boolean completed) {
+    public Task(Long id, String title, String description, LocalDate dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.completed = completed;
+        this.completed = false;
     }
 
     public Long getId() {
