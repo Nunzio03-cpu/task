@@ -41,4 +41,20 @@ public class TaskService {
        taskRepository.delete(task);
        return task;
     }
+
+    /**
+     *
+     * @param id
+     * @return oggetto salvato con campo completed = true
+     */
+    public Optional<Task> updateCompletedStatusTrue(Long id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()) {
+            taskOptional.get().setCompleted(true);
+            Task task = taskRepository.save(taskOptional.get());
+            return Optional.of(task);
+        } else {
+            return Optional.empty();
+        }
+    }
 }

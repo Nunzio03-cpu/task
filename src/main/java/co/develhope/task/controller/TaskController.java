@@ -39,4 +39,14 @@ public class TaskController {
     public ResponseEntity<Task> deleteTask(@RequestBody Task task){
         return ResponseEntity.ok(taskService.deleteTask(task));
     }
+
+    @PutMapping("/update-completed-status-true/{id}")
+    public ResponseEntity<Optional<Task>> updateCompletedStatusTrue(@PathVariable Long id){
+        Optional<Task> taskOptional = taskService.updateCompletedStatusTrue(id);
+        if (taskOptional.isPresent()){
+            return ResponseEntity.ok(taskOptional);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
