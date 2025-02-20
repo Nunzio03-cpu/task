@@ -15,16 +15,35 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    /**
+     *  Endpoint POST /create-task
+     *  Descrizione: crea un nuovo oggetto task
+     *  @param task
+     *  @return file json del nuovo oggetto task
+     */
     @PostMapping("/create-task")
     public ResponseEntity<Task> createTask(@RequestBody Task task){
         return ResponseEntity.ok(taskService.createTask(task));
     }
 
+    /**
+     *  Endpoint GET /select-all-tasks
+     *  Descrizione: seleziona tutti i task creati
+     *  @return tutti gli oggetti task all'interno di un ArrayList
+     */
     @GetMapping("/select-all-tasks")
     public ResponseEntity<ArrayList<Task>> selectAllTasks(){
         return ResponseEntity.ok(taskService.selectAllTasks());
     }
 
+    /**
+     *  Endpoint PUT /update-task/{id}
+     *  Descrizione: cerca l'oggetto task tramite il suo id
+     *  e aggiorna i suoi campi con quelli del task aggiornato
+     *  @param id
+     *  @param task
+     *  @return task aggiornato
+     */
     @PutMapping("/update-task/{id}")
     public ResponseEntity<Optional<Task>> updateTask(@PathVariable Long id, @RequestBody Task task){
         Optional<Task> taskOptional = taskService.updateTask(id, task);
@@ -35,11 +54,24 @@ public class TaskController {
         }
     }
 
+    /**
+     *  Endpoint DELETE /delete-task
+     *  Descrizione: Elimina il task inserito
+     *  @param task
+     *  @return oggetto task eliminato
+     */
     @DeleteMapping("/delete-task")
     public ResponseEntity<Task> deleteTask(@RequestBody Task task){
         return ResponseEntity.ok(taskService.deleteTask(task));
     }
 
+    /**
+     *  Endpoint PUT /update-completed-status-true{id}
+     *  Descrizione: Trova l'oggetto task tramite il suo id
+     *  e ne aggiorna lo stato del suo campo completed da false a true
+     *  @param id
+     *  @return oggetto task aggiornato
+     */
     @PutMapping("/update-completed-status-true/{id}")
     public ResponseEntity<Optional<Task>> updateCompletedStatusTrue(@PathVariable Long id){
         Optional<Task> taskOptional = taskService.updateCompletedStatusTrue(id);
