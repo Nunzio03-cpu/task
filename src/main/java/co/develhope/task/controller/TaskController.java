@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,7 +34,8 @@ public class TaskController {
      */
     @GetMapping("/select-all-tasks")
     public ResponseEntity<ArrayList<Task>> selectAllTasks(){
-        return ResponseEntity.ok(taskService.selectAllTasks());
+        List<Task> tasks = taskService.selectAllTasks();
+        return ResponseEntity.ok(new ArrayList<>(tasks));
     }
 
     /**
@@ -80,5 +82,17 @@ public class TaskController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    /**
+     *  Endpoint: GET /time-remaining
+     *  Descrizione: Calcola quanto tempo rimane alla data del task
+     *  @param task
+     *  @return tempo rimanente al task: se non è ancora passato restituirà
+     *  quanti giorni mancano, altrimenti restituirà 0
+     */
+    @GetMapping("/time-remaining")
+    public ResponseEntity<Long> timeRemaining(@RequestBody Task task){
+        return ResponseEntity.ok(taskService.timeRemainig(task));
     }
 }
