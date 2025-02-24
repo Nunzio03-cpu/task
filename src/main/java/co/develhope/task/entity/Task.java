@@ -20,6 +20,8 @@ public class Task {
     private LocalDate dueDate;
     @Column(name = "completed", nullable = false)
     private boolean completed;
+    @Column(name = "late", nullable = false)
+    private boolean late;
 
     public Task() {}
 
@@ -29,6 +31,7 @@ public class Task {
         this.description = description;
         this.dueDate = dueDate;
         this.completed = false;
+        this.late = false;
     }
 
     public Long getId() {
@@ -69,5 +72,13 @@ public class Task {
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
+    }
+
+    public boolean isLate() {
+        return late;
+    }
+
+    public void setLate(boolean late) {
+        this.late = late;
     }
 }

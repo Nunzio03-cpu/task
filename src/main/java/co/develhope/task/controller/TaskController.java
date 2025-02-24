@@ -95,4 +95,26 @@ public class TaskController {
     public ResponseEntity<Long> timeRemaining(@RequestBody Task task){
         return ResponseEntity.ok(taskService.timeRemainig(task));
     }
+
+    /**
+     *  Endpoint: GET /mark-task-late
+     *  Descrizione: marchia i task in ritardo
+     *  @return messaggio che i task sono stati marchiati
+     */
+    @GetMapping("/mark-task-late")
+    public ResponseEntity<String> markTaskAsLate(){
+        taskService.markTaskAsLate();
+        return ResponseEntity.ok("Tutti i task in ritardo sono stati contrassegnati.");
+    }
+
+    /**
+     *  Endpoint: GET /select-task-late
+     *  Descrizione: seleziona tutti i task marchiati come "in ritardo"
+     *  @return Lista con tutti i task in ritardo
+     */
+    @GetMapping("/select-task-late")
+    public ResponseEntity<ArrayList<Task>> selectTaskAsLate(){
+        ArrayList<Task> tasks = taskService.selectTaskAsLate();
+        return ResponseEntity.ok(tasks);
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,5 +68,22 @@ public class TaskService {
         } else{
             return 0L;
         }
+    }
+
+    /**
+     * Se task non è completa E la data del task è prima di ora
+     * allora task è in ritardo
+     */
+    public void markTaskAsLate(){
+        Collection<Task> tasks = taskRepository.taskAsLate();
+        for (Task task : tasks){
+            task.setLate(true);
+            taskRepository.save(task);
+        }
+    }
+
+    public ArrayList<Task> selectTaskAsLate(){
+        Collection<Task> tasks = taskRepository.taskAsLate();
+        return new ArrayList<>(tasks);
     }
 }
