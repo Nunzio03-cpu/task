@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/task")
+@CrossOrigin
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -116,5 +117,11 @@ public class TaskController {
     public ResponseEntity<ArrayList<Task>> selectTaskAsLate(){
         ArrayList<Task> tasks = taskService.selectTaskAsLate();
         return ResponseEntity.ok(tasks);
+    }
+
+    @PostMapping("/create-random-tasks")
+    public ResponseEntity<String> createRandomTasks(@RequestParam int count){
+        taskService.getRandomTask(count);
+        return ResponseEntity.ok("Creati count tasks");
     }
 }

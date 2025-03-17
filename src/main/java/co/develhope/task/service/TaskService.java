@@ -7,10 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class TaskService {
@@ -85,5 +83,23 @@ public class TaskService {
     public ArrayList<Task> selectTaskAsLate(){
         Collection<Task> tasks = taskRepository.taskAsLate();
         return new ArrayList<>(tasks);
+    }
+
+    /**
+     *  Lancia il metodo crate 20 volte
+     */
+    public void getRandomTask(Integer count){
+        //1: creare l'oggetto
+        String randomTitle = UUID.randomUUID().toString();
+        String randomDescription = UUID.randomUUID().toString();
+        long minDay = LocalDate.of(1970, 1, 1).toEpochDay();
+        long maxDay = LocalDate.of(2015, 12, 31).toEpochDay();
+        long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
+        LocalDate randomDate = LocalDate.ofEpochDay(randomDay);
+        for (int i = 0; i < count; i++){
+            Task task = new Task(null, randomTitle, randomDescription, randomDate);
+            taskRepository.save(task);
+        }
+
     }
 }
