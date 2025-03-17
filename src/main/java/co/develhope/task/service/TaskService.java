@@ -100,6 +100,14 @@ public class TaskService {
             Task task = new Task(null, randomTitle, randomDescription, randomDate);
             taskRepository.save(task);
         }
+    }
 
+    public Optional<Task> selectById(Long id) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+        if (taskOptional.isPresent()){
+            return taskOptional;
+        } else {
+            return Optional.empty();
+        }
     }
 }

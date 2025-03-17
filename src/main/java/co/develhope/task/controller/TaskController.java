@@ -124,4 +124,14 @@ public class TaskController {
         taskService.getRandomTask(count);
         return ResponseEntity.ok("Creati count tasks");
     }
+
+    @GetMapping("/select-by-id/{id}")
+    public ResponseEntity<Optional<Task>> selectById(@PathVariable Long id){
+        Optional<Task> taskOptional = taskService.selectById(id);
+        if (taskOptional.isPresent()){
+            return ResponseEntity.ok(taskOptional);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
